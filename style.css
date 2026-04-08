@@ -1,0 +1,10 @@
+body{
+    display: flex ;
+}
+
+.canvas-container{
+    background-color: black;
+    padding: 12px 15px;
+    border-radius: 8px;
+}
+
