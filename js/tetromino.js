@@ -35,7 +35,8 @@ Position(2,1) sería aquí:
  */
 
 class Tetromino{
-    constructor(canvas, cellSize, shapes, initPosition, id){
+    constructor(canvas, cellSize, shapes = [], initPosition = new  Position() , id=1){ /**SEGUNDA PARTE INICIALIZAR VARIABLES YA QUE SE ESTAN LLAMANDO EN EL GRID */
+
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
         this.cellSize = cellSize;
@@ -349,7 +350,47 @@ const TetrominoType = {
     }
 }
 
-export { Position, Tetromino, TetrominoType };
+
+/**SEGUNDA PARTE CREAR UNA BOLSA DE FORMAS QUE SE LLENAN Y VAN SALIENDO ALEATOREAMENTE LA QUE SALE VA SALIENDO DE LA LISTA HASTA QUE TODAS HAYAN SALIDO, ESTO AHI QUE TRABAJARLO DESPUES */
+
+class TetrominoBag{
+    constructor(canvas, cellSize){
+        this.canvas = canvas;
+        this.cellSize = cellSize;
+        this.bag = [];
+    }
+
+    fillBag(){
+        const tetrominoTypes = [
+            TetrominoType.T,
+            TetrominoType.O,
+            TetrominoType.I,
+            TetrominoType.S,
+            TetrominoType.Z,
+            TetrominoType.J,
+            TetrominoType.L
+        ]
+        this.bag.length = 0; // Limpia la bolsa
+        tetrominoTypes.forEach(type => {
+            this.bag.push(new Tetromino(this.canvas, this.cellSize, type.shapes, type.initPosition, type.id));
+        });
+
+        for(let i = this.bag.length - 1; i > 0; i--){
+            let j = Math.floor(Math.random() * (i + 1));
+            [this.bag[i], this.bag[j]] = [this.bag[j], this.bag[i]];
+        } 
+    }
+
+    getNextTetromino(){
+        if(this.bag.length === 0){
+            this.fillBag();
+        } 
+        return this.bag.pop();
+    }
+
+}
+
+export { Position, Tetromino, TetrominoType, TetrominoBag };
 
 
 /**

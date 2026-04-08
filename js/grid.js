@@ -1,5 +1,7 @@
 //  IDEA PRINCIPAL
 
+import { Tetromino } from "./tetromino.js";
+
 // El Grid hace 3 cosas:
 
 // Guarda el estado del tablero (matriz)
@@ -20,13 +22,18 @@ export class Grid {
 
         this.canvas.width = this.cols * this.cellSize + (this.space * this.cols);
         this.canvas.height = this.rows * this.cellSize + (this.space * this.rows);
+
+
+        /**SEGUNDA PARTE */
+        this.block = new Tetromino(this.canvas, this.cellSize); 
+
     }
 
     restartMatriz(){
         for(let r = 0; r < this.rows; r++){ // recorre las filas
             this.matriz[r] = [];  // 
             for(let c = 0; c < this.cols; c++){
-                this.matriz[r][c] = 0; // llena cada celda con un 0, indicando que esta vacia
+                this.matriz[r][c] = 0; // llena cada celda con un 0, indicando que esta vacia y colore segun el color indicado
             }
         }
     }
@@ -82,6 +89,15 @@ export class Grid {
             for(let c = 0; c < this.cols; c++){
                 const postion = this.getCoordinates(c,r); // Convierte celda → pixeles
                 this.drawSquere(postion.x, postion.y, this.cellSize, "#000", "#272626");
+
+                /**SEGUNDA PARTE */
+                if(this.matriz[r][c] !== 0){ // Si la celda no esta vacia (0) dibuja un bloque con el color especificado en la matriz
+                    this.block.drawBlock(postion.x, postion.y, this.matriz[r][c]);
+                }else{
+                    this.drawSquere(postion.x, postion.y, this.cellSize, "#000", "#303030");
+                }
+
+
             }
         } 
         this.printMatriz();
