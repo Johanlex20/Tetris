@@ -11,9 +11,9 @@ const space = 2;
 
 
 
-const game = new Game(canvasTetris, rows, cols, cellSize, space);
+const game = new Game(canvasTetris, rows, cols, cellSize, space); // Aquí creas TODO el juego.
 
-//EL GAME LOOP (LO MÁS IMPORTANTE)
+//EL GAME LOOP Es un loop infinito sincronizado con el navegador.
 function update(){
     game.update();
     requestAnimationFrame(update); //Le dice al navegador: "vuelve a ejecutar update en el siguiente frame"

@@ -25,7 +25,7 @@ export class Grid {
 
 
         /**SEGUNDA PARTE */
-        this.block = new Tetromino(this.canvas, this.cellSize); 
+        this.block = new Tetromino(this.canvas, this.cellSize); //Es como un “pincel” para dibujar bloques
 
     }
 
